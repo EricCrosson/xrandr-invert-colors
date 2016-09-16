@@ -15,7 +15,7 @@ Note that this method of installation provides a quick way to invoke
 
     inv
 
-The :code:`inv` script is installed in $HOME/bin.
+If :code:`xbindkeys` is running, :code:`Alt + F11` will invoke this utility.
 
 Manual installation
 -------------------

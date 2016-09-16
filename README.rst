@@ -3,22 +3,8 @@ XRandR Invert Colors
 
 Simple utility that inverts colors on all screens, using XrandR.
 
-Dependencies
-------------
-
--  XrandR development files (``apt-get install libxcb-randr0-dev``)
--  Type ``sudo make deps-apt`` on Debian / Ubuntu
-
-Build
------
-
--  From a terminal, type ``make``
-
-Install
--------
-
 Ansible installation
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Run the ansible playbook to install::
 
@@ -32,13 +18,27 @@ Note that this method of installation provides a quick way to invoke
 The :code:`inv` script is installed in $HOME/bin.
 
 Manual installation
-~~~~~~~~~~~~~~~~~~~
+-------------------
+
+Dependencies
+~~~~~~~~~~~~
+
+-  XrandR development files (``apt-get install libxcb-randr0-dev``)
+-  Type ``sudo make deps-apt`` on Debian / Ubuntu
+
+Build
+~~~~~
+
+-  From a terminal, type ``make``
+
+Install
+~~~~~~~
 
 Execute ``sudo make install`` after build to put the binary in the
 following location: + ``/usr/local/bin/xrandr-invert-colors``
 
-Using
------
+Use
+---
 
 Run ``xrandr-invert-colors.bin`` for inverting colors on all screens.
 The follwing program option is implemented:
@@ -59,6 +59,10 @@ Achknowledgements
 Redshift developers, for creating the XRandR gamma setting code. Their
 code is reused in this application. http://jonls.dk/redshift/
 https://launchpad.net/redshift
+
+Zoltanp for the original xrandr-invert-colors_ repo.
+
+.. _xrandr-invert-colors: https://github.com/zoltanp/xrandr-invert-colors
 
 Alternatives
 ------------

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Written by Eric Crosson
+# 2016-09-17
+#
+# This script inverts the $DISPLAY's video output.
+
+xrandr-invert-colors

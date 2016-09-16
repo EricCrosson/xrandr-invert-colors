@@ -1,0 +1,13 @@
+---
+# tasks file for invert-screen
+
+- name: check if xrandr-invert-colors is installed
+  command: which xrandr-invert-colors
+  register: is_installed
+  failed_when: is_installed.rc > 1
+  changed_when: no
+
+- include: xrandr_invert_colors.yml
+  when: is_installed.rc != 0
+
+- include: xbindkeys.yml

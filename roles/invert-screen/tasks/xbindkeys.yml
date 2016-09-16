@@ -1,0 +1,26 @@
+---
+# bind `inv` to a hotkey with xbindkeys
+- name: install xbindkeys
+  become: yes
+  become_user: root
+  apt:
+    name: xbindkeys
+    state: present
+    update_cache: yes
+    cache_valid_time: 604800
+
+- name: add hotkey to xbindkeys
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.xbindkeysrc"
+    line: "{{item}}"
+    state: present
+    create: yes
+  with_items:
+    - '#invert screen'
+    - '"inv"'
+    - '    m:0x18 + c:95'
+    - '    Alt+Mod2 + F11 '
+
+- debug: msg="Alt+F11 inverts screen colors"
+
+# TODO: install xbindkeys at boot

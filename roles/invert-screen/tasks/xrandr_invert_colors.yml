@@ -1,0 +1,51 @@
+---
+- name: install targets
+  become: yes
+  become_user: root
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 604800
+  with_items:
+    - libxcb-randr0-dev
+
+- name: create working directories
+  file:
+    path: "{{ ansible_env.HOME }}/{{item}}"
+    state: directory
+  with_items:
+    - bin
+    - workspace
+
+# TODO: ensure bin is in the path? how sophisticated can this get
+
+- name: clone inversion repository
+  git:
+    repo: git://github.com/ericcrosson/xrandr-invert-colors
+    dest: "{{ ansible_env.HOME }}/workspace/xrandr-invert-colors"
+
+- name: make inversion binary
+  make:
+    chdir: "{{ ansible_env.HOME }}/workspace/xrandr-invert-colors"
+    params:
+      NUM_THREADS: 4
+
+- name: install inversion binary
+  become: yes
+  become_user: root
+  make:
+    chdir: "{{ ansible_env.HOME }}/workspace/xrandr-invert-colors"
+    target: install
+
+- name: cleanup workspace directory
+  file:
+    path: "{{ ansible_env.HOME }}/workspace/xrandr-invert-colors"
+    state: absent
+
+- name: install script wrapper
+  copy:
+    src: files/inv
+    dest: "{{ ansible_env.HOME }}/bin/inv"
+    mode: 0755
+

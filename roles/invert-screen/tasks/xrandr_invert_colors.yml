@@ -1,5 +1,5 @@
 ---
-- name: install targets
+- name: install build dependencies
   become: yes
   become_user: root
   apt:
@@ -48,4 +48,3 @@
     src: files/inv
     dest: "{{ ansible_env.HOME }}/bin/inv"
     mode: 0755
-

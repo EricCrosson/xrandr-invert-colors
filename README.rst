@@ -8,7 +8,7 @@ Ansible installation
 
 Run the ansible playbook to install::
 
-    anible-playbook site.yml
+    anible-playbook site.yml -e 'target=localhost'
 
 Note that this method of installation provides a quick way to invoke
 :code:`xrandr-invert-colors`::

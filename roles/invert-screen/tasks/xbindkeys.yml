@@ -1,4 +1,10 @@
 ---
+- name: install xrandr_invert_colors script wrapper
+  copy:
+    src: files/inv
+    dest: "{{ ansible_env.HOME }}/bin/inv"
+    mode: 0755
+
 # bind `inv` to a hotkey with xbindkeys
 - name: install xbindkeys
   become: yes

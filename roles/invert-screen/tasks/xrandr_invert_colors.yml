@@ -35,16 +35,10 @@
   become: yes
   become_user: root
   make:
-    chdir: "{{ ansible_env.HOME }}/workspace/xrandr-invert-colors"
+    chdir: "{{ tmpdir_path }}/xrandr-invert-colors"
     target: install
 
 - name: cleanup workspace directory
   file:
-    path: "{{ ansible_env.HOME }}/workspace/xrandr-invert-colors"
+    path: "{{ tmpdir_path }}/xrandr-invert-colors"
     state: absent
-
-- name: install script wrapper
-  copy:
-    src: files/inv
-    dest: "{{ ansible_env.HOME }}/bin/inv"
-    mode: 0755

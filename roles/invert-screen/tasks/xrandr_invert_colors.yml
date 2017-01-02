@@ -10,24 +10,34 @@
   with_items:
     - libxcb-randr0-dev
 
+### tmpdir shenanigans
+- name: create a temp directory
+  command: mktemp -d "{{ lookup('env','TMPDIR') | default('/tmp') }}ansible.XXXX"
+  register: mktemp_output
+
+- name: set tmpdir_path
+  set_fact:
+    tmpdir_path: "{{ mktemp_output.stdout }}"
+  when: not tmpdir_path
+### end tmpdir shenanigans
+
 - name: create working directories
   file:
     path: "{{ ansible_env.HOME }}/{{item}}"
     state: directory
   with_items:
     - bin
-    - workspace
 
 # TODO: ensure bin is in the path? how sophisticated can this get
 
 - name: clone inversion repository
   git:
     repo: git://github.com/ericcrosson/xrandr-invert-colors
-    dest: "{{ ansible_env.HOME }}/workspace/xrandr-invert-colors"
+    dest: "{{ tmpdir_path }}/xrandr-invert-colors"
 
 - name: make inversion binary
   make:
-    chdir: "{{ ansible_env.HOME }}/workspace/xrandr-invert-colors"
+    chdir: "{{ tmpdir_path }}/xrandr-invert-colors"
     params:
       NUM_THREADS: 4
 

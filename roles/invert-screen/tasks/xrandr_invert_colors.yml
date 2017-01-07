@@ -12,13 +12,14 @@
 
 ### tmpdir shenanigans
 - name: create a temp directory
-  command: mktemp -d "{{ lookup('env','TMPDIR') | default('/tmp') }}ansible.XXXX"
-  register: mktemp_output
+  command: mktemp -d -p /tmp ansible.XXXX
+  register: tmpdir_mktemp
+  when: tmpdir_path is undefined
 
 - name: set tmpdir_path
   set_fact:
-    tmpdir_path: "{{ mktemp_output.stdout }}"
-  when: not tmpdir_path
+    tmpdir_path: "{{ tmpdir_mktemp.stdout }}"
+  when: tmpdir_path is undefined
 ### end tmpdir shenanigans
 
 - name: create working directories

@@ -27,6 +27,8 @@
     - '    m:0x18 + c:95'
     - '    Alt+Mod2 + F11 '
 
-- debug: msg="Alt+F11 inverts screen colors"
+- name: run xbindkeys
+  command: xbindkeys
+# TODO: install script to run xbindkeys at boot
 
-# TODO: install xbindkeys at boot
+- debug: msg="Alt+F11 inverts screen colors"
